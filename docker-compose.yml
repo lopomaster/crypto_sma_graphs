@@ -1,0 +1,37 @@
+version: '3.5'
+
+services:
+  server-app:
+    restart: always
+    environment:
+      RAILS_ENV: development
+      DB_HOST: localhost
+      DB_USER: root
+      DB_PASSWORD: rootrootroot
+      DB_NAME: crypto_app_dev
+      RAILS_MAX_THREADS: 20
+    ports:
+      - '3000:3000'
+    networks:
+      - app-network
+    depends_on:
+      - db
+  db:
+    image: mysql/mysql-server
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootrootroot
+    ports:
+      - '3306:3306'
+    volumes:
+      - db-volume:/var/lib/mysql/data
+    networks:
+      - app-network
+
+volumes:
+  db-volume:
+  server-app:
+
+networks:
+  app-network:
+    driver: bridge

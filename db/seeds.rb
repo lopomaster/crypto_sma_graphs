@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+puts "SEEDS START ------------------------------------------------------"
+
+if Cryptocurrency.all.size === 0
+  Cryptocurrency.create(symbol: 'ADABNB', name: 'ADA/BNB')
+  puts "Cryptocurrencies created"
+else
+  puts "Cryptocurrencies exist"
+end
+
+puts "SEEDS END ------------------------------------------------------"
