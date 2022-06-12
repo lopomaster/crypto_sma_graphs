@@ -1,4 +1,4 @@
-class Cryptocurrency < ApplicationRecord
+class CryptoCurrency < ApplicationRecord
   validates :symbol, presence: true
   validates_uniqueness_of :symbol
   validates :name, presence: true
@@ -39,7 +39,7 @@ class Cryptocurrency < ApplicationRecord
   private
 
   def pull_api_data
-    api_service = CryptocurrencyApiService.new
+    api_service = CryptoCurrencyApiService.new
     api_service.update_single_cryptocurrency_data(self.symbol)
   end
 end

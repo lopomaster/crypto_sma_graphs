@@ -66,6 +66,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'faker'
+  gem 'shoulda-matchers'
+  gem 'minitest-around', group: :test
 end
 
 gem 'sass-rails', '~> 5.0'

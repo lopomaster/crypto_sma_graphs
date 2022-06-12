@@ -8,8 +8,8 @@
 
 puts "SEEDS START ------------------------------------------------------"
 
-if Cryptocurrency.all.size === 0
-  Cryptocurrency.create(symbol: 'ADABNB', name: 'ADA/BNB')
+if CryptoCurrency.all.size === 0
+  CryptoCurrency.create(symbol: 'ADABNB', name: 'ADA/BNB')
   puts "Cryptocurrencies created"
 else
   puts "Cryptocurrencies exist"

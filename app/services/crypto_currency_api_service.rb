@@ -1,11 +1,11 @@
-class CryptocurrencyApiService
+class CryptoCurrencyApiService
   require 'net/http'
 
   def initialize
   end
 
   def update_bulk_cryptocurrency_data
-    symbols = Cryptocurrency.all.pluck(:symbol).map { |symbol| symbol.upcase }.join(',')
+    symbols = CryptoCurrency.all.pluck(:symbol).map { |symbol| symbol.upcase }.join(',')
     symbols.split(',').each do |symbol|
       json = send_api_request(symbol)
       update_cryptocurrency(symbol, json) if json
@@ -18,7 +18,6 @@ class CryptocurrencyApiService
   end
 
   private
-
 
   #   [
   #     [
@@ -38,30 +37,27 @@ class CryptocurrencyApiService
   # ]
 
   def send_api_request(symbol='ADABNB', interval='1h')
-    begin
-      url  = "https://api.binance.com/api/v3/klines?symbol=#{symbol}&interval=#{interval}"
-      uri  = URI(url)
-      res  = Net::HTTP.get(uri)
-      json = JSON.parse(res)
-    rescue => e
-      puts "Raised exception requesting cryptocurrency data url: #{url}"
-      puts e.message
-      puts e.backtrace.inspect
-    end
+    url  = "https://api.binance.com/api/v3/klines?symbol=#{symbol}&interval=#{interval}"
+    uri  = URI(url)
+    res  = Net::HTTP.get(uri)
+    json = JSON.parse(res)
+  rescue => e
+    puts "Raised exception requesting crypto_currency data url: #{url}"
+    puts e.message
+    puts e.backtrace.inspect
   end
 
   def update_cryptocurrency(symbol, api_data)
-    begin
-      crypto = Cryptocurrency.find_by(symbol: symbol)
-      crypto.raw_data = api_data
-      crypto.display_data = crypto.calc_display_data
-      crypto.save!
-    rescue => e
-      puts "Raised exception updating #{symbol}"
-      puts e.message
-      puts e.backtrace.inspect
-    end
+    crypto = CryptoCurrency.find_by(symbol: symbol)
+    crypto.raw_data = api_data
+    crypto.display_data = crypto.calc_display_data
+    crypto.save!
+  rescue => e
+    puts "Raised exception updating #{symbol}"
+    puts e.message
+    puts e.backtrace.inspect
   end
+
 end
 
 # https://api.binance.com/api/v3/avgPrice?symbol=ADABNB

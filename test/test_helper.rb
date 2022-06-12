@@ -9,5 +9,13 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  setup do
+    DatabaseCleaner.start
+    Rails.application.load_seed # loading seeds
+  end
+
+  teardown do
+    DatabaseCleaner.clean
+  end
+
 end
