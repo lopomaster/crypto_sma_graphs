@@ -2,9 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-import "chartkick"
-import "Chart.bundle"
-
+//= require highcharts
 //= require jquery3
 //= require jquery_ujs
 //= require popper

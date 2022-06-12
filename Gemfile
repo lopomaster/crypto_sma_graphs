@@ -73,3 +73,4 @@ gem 'gruff'
 gem 'bootstrap'
 gem 'jquery-rails'
 gem 'whenever', require: false
+gem "highcharts-rails"
