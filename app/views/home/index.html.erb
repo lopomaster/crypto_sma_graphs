@@ -1,0 +1,47 @@
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+
+
+<div id="container" style="height: 400px"></div>
+
+<script>
+    Highcharts.chart('container', {
+        xAxis: {
+            type: 'datetime',
+        },
+        title: {
+            text: '<%= @adabnb.name %>'
+        },
+        subtitle: {
+            text:  '<%= klines_date_range(@adabnb.display_data['date_range']['start_at'], @adabnb.display_data['date_range']['end_at']) %>'
+        },
+        series: [{
+            name: 'SMA 2 days',
+            data: <%= @adabnb.display_data['sma_data']['48'].to_json  %>
+        }, {
+            name: 'SMA 3 days',
+            data: <%= @adabnb.display_data['sma_data']['72'].to_json  %>
+        }, {
+            name: 'SMA 4 days',
+            data: <%= @adabnb.display_data['sma_data']['96'].to_json  %>
+        },
+        {
+            name: 'SMA 5 days',
+            data: <%= @adabnb.display_data['sma_data']['120'].to_json  %>
+        },
+        {
+            name: 'SMA 6 days',
+            data: <%= @adabnb.display_data['sma_data']['144'].to_json  %>
+        },
+        {
+            name: 'SMA 7 days',
+            data: <%= @adabnb.display_data['sma_data']['168'].to_json  %>
+        },
+        {
+            name: 'Price',
+            data: <%= @adabnb.display_data['close_prices'].to_json  %>
+        }
+        ]
+    });
+</script>
