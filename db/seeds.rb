@@ -10,6 +10,7 @@ puts "SEEDS START ------------------------------------------------------"
 
 if CryptoCurrency.all.size === 0
   CryptoCurrency.create(symbol: 'ADABNB', name: 'ADA/BNB')
+  CryptoCurrencyApiService.new.update_bulk_cryptocurrency_data
   puts "Cryptocurrencies created"
 else
   puts "Cryptocurrencies exist"

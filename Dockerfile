@@ -5,25 +5,13 @@ WORKDIR /usr/src/crypto_app
 COPY . .
 
 RUN apt-get update -qq \
-    && apt-get install -y build-essential libpq-dev nodejs npm imagemagick mariadb-client vim \
-    && npm install -g bower \
+    && apt-get install -y build-essential libpq-dev nodejs npm imagemagick mariadb-client vim cron \
     && chmod +x entrypoint.sh \
-    && echo "deb http://deb.debian.org/debian unstable main" >> /etc/apt/sources.list \
-    && apt-get update -qq \
-    && apt-get install -y libmariadb3/unstable \
-    && sed -i '$d' /etc/apt/sources.list
-
-
-CMD mkdir -p tmp/pids && \
-    bundle exec rails db:create && \
-    bundle exec rails db:migrate && \
-    bundle exec rake db:seed && \
-    bundle exec puma -C config/puma.rb
-
-CMD whenever --update-crontab
+    && gem install bundler
 
 EXPOSE 3000
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+# for keep alive the container without any rails process. Allows to run the test suite, execute commands, run console...
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
 
-
+ENTRYPOINT ["./entrypoint.sh"]

@@ -1,10 +1,7 @@
-class CryptoCurrency < ApplicationRecord
-  validates :symbol, presence: true
-  validates_uniqueness_of :symbol
-  validates :name, presence: true
-  validates_uniqueness_of :name
+class CryptoCurrency < ActiveRecord::Base
 
-  after_create :pull_api_data
+  validates :symbol, presence: true, uniqueness: true, allow_nil: false
+  validates :name, presence: true, uniqueness: true, allow_nil: false
 
   SMA_INTERVALS = [48, 72, 96, 120, 144, 168].freeze
   SMA_PRECISION = 8
@@ -17,7 +14,7 @@ class CryptoCurrency < ApplicationRecord
     self.raw_data.map {|row| row[0] }
   end
 
-  def moving_average(a, group, precision)
+  def moving_average(a, group, precision=SMA_PRECISION)
     data = a.each_cons(group).map { |e| e.reduce(&:+).fdiv(group).round(precision) }
   end
 
@@ -27,7 +24,7 @@ class CryptoCurrency < ApplicationRecord
     times = open_times
 
     SMA_INTERVALS.each do |interval|
-      moving_average_data = moving_average(prices, interval, SMA_PRECISION)
+      moving_average_data = moving_average(prices, interval)
       moving_average_data = moving_average_data.insert(0, Array.new(interval - 1, nil)).flatten
       sma_data[:sma_data] = sma_data[:sma_data].merge({ interval => times.zip(moving_average_data) })
     end
@@ -36,10 +33,4 @@ class CryptoCurrency < ApplicationRecord
     sma_data
   end
 
-  private
-
-  def pull_api_data
-    api_service = CryptoCurrencyApiService.new
-    api_service.update_single_cryptocurrency_data(self.symbol)
-  end
 end

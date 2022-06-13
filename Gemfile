@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.2", ">= 7.0.2.4"
+gem "rails", "~> 6"
 
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
@@ -17,9 +17,6 @@ gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
-
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -71,11 +68,14 @@ group :test do
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'minitest-around', group: :test
+  gem 'shoulda-matchers'
+  gem 'simplecov', '~> 0.15.1'
 end
 
 gem 'sass-rails', '~> 5.0'
 gem 'gruff'
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'whenever', require: false
+gem 'crono'
 gem "highcharts-rails"
+gem "net-smtp"

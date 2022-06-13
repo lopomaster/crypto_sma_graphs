@@ -10,14 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_12_084914) do
+ActiveRecord::Schema.define(version: 2022_06_13_153557) do
+
+  create_table "crono_jobs", charset: "utf8mb3", force: :cascade do |t|
+    t.string "job_id", null: false
+    t.text "log", size: :long
+    t.datetime "last_performed_at"
+    t.boolean "healthy"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["job_id"], name: "index_crono_jobs_on_job_id", unique: true
+  end
+
   create_table "crypto_currencies", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "symbol", null: false
     t.json "display_data"
     t.json "raw_data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
