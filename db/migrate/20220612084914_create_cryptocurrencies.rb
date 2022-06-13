@@ -1,4 +1,4 @@
-class CreateCryptocurrencies < ActiveRecord::Migration[7.0]
+class CreateCryptocurrencies < ActiveRecord::Migration[6.1]
   def change
     create_table :crypto_currencies do |t|
       t.string :name, null: false

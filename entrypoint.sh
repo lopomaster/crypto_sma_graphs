@@ -5,6 +5,6 @@ bundle exec rails db:create
 bundle exec rake db:migrate
 bundle exec rake db:seed
 
-bundle exec crono -e development
+bundle exec crono -e development nohup &
 
 rails s -b 0.0.0.0
