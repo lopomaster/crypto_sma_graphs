@@ -1,7 +1,8 @@
 class CryptoCurrencyApiService
   require 'net/http'
 
-  def initialize
+  def perform a=nil
+    update_bulk_cryptocurrency_data
   end
 
   def update_bulk_cryptocurrency_data

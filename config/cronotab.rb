@@ -14,12 +14,5 @@
 # Crono.perform(TestJob).every 2.days, at: '15:30'
 #
 
-class CryptoCron
-  def perform
-    puts 'UPDATE STARTING'
-    CryptoCurrencyApiService.new.update_bulk_cryptocurrency_data
-    puts 'UPDATE FINISHED'
-  end
-end
 
-Crono.perform(CryptoCron).every 5.seconds
+Crono.perform(CryptoCurrencyApiService).every 1.hour
