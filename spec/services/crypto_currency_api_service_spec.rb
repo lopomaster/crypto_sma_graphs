@@ -47,6 +47,25 @@ RSpec.describe CryptoCurrencyApiService do
 
     end
 
+    it 'update_single_cryptocurrency_data' do
+      crypto_currency = CryptoCurrency.find_by_symbol('ADABNB')
+      crypto_currency.update(raw_data: nil, display_data: nil)
+
+
+      expect(crypto_currency.raw_data).to eq nil
+      expect(crypto_currency.display_data).to eq nil
+
+      CryptoCurrencyApiService.new.update_single_cryptocurrency_data 'ADABNB'
+
+      crypto_currency.reload
+
+      expect(crypto_currency.raw_data).to eq mock_response
+      expect(crypto_currency.display_data['sma_data'].to_json).to eq display_data_values.stringify_keys['sma_data'].to_json
+      expect(crypto_currency.display_data['date_range'].sort.to_json).to eq display_data_values.stringify_keys['date_range'].sort.to_json
+      expect(crypto_currency.display_data['close_prices'].sort.to_json).to eq display_data_values.stringify_keys['close_prices'].sort.to_json
+
+    end
+
   end
 
 end
