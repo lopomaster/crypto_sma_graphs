@@ -67,7 +67,6 @@ group :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'shoulda-matchers'
-  gem 'minitest-around', group: :test
   gem 'shoulda-matchers'
   gem 'simplecov', '~> 0.15.1'
 end
