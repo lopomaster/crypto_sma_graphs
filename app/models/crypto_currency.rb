@@ -1,7 +1,9 @@
 class CryptoCurrency < ActiveRecord::Base
 
-  validates :symbol, presence: true, uniqueness: true, allow_nil: false
-  validates :name, presence: true, uniqueness: true, allow_nil: false
+  validates_presence_of :name
+  validates_presence_of :symbol
+  validates_uniqueness_of :name
+  validates_uniqueness_of :symbol
 
   SMA_INTERVALS = [48, 72, 96, 120, 144, 168].freeze
   SMA_PRECISION = 8

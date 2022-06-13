@@ -36,9 +36,20 @@ RSpec.configure do |config|
 
   config.include ActiveSupport::Testing::TimeHelpers
 
-  config.after(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
+  config.before(:suite) do
+    DatabaseCleaner.clean_with :truncation  # clean DB of any leftover data
+    DatabaseCleaner.strategy = :transaction # rollback transactions between each test
+    # Rails.application.load_seed # (optional) seed DB
   end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
 
   config.infer_spec_type_from_file_location!
 
